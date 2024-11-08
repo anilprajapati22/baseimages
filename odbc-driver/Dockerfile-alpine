@@ -1,0 +1,18 @@
+FROM python:3.12.7-alpine
+
+RUN apk update && apk add curl gnupg libc6-compat unixodbc g++
+
+RUN apk add unixodbc-dev
+
+COPY --chmod=0755 install-odbc-alpine.sh install-odbc-alpine.sh
+
+RUN ./install-odbc-alpine.sh
+
+COPY requirements.txt requirements.txt
+
+RUN pip install -r requirements.txt
+
+COPY odbc-test.py odbc-test.py
+
+# Command to run the script
+CMD ["python", "odbc-test.py"]

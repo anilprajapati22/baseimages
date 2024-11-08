@@ -1,0 +1,17 @@
+FROM python:3.12.7-bullseye
+
+# Install dependencies
+RUN apt-get update -y && apt-get install -y wget xvfb unzip jq
+
+COPY install-odbc-ubuntu.sh install-odbc-ubuntu.sh
+
+RUN ./install-odbc-ubuntu.sh
+
+COPY requirements.txt requirements.txt
+
+RUN pip install -r requirements.txt
+
+COPY odbc-test.py odbc-test.py
+
+# Command to run the script
+CMD ["python", "odbc-test.py"]
