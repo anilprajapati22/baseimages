@@ -1,5 +1,5 @@
 #!/bin/sh
 
-python /opt/test_chromedriver.py
+python /opt/test_chromedriver.py || exit 1
 
-python odbc-test.py
+python odbc-test.py || exit 1
